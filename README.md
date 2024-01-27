@@ -1,21 +1,13 @@
-# SpringBoot 项目初始模板
+# Ducky BI
+- 基于SpringBoot +AIGC的智能数据分析平台
+- 此文件为项目的后端代码
 
-> 作者：[程序员鱼皮](https://github.com/liyupi)
-> 仅分享于 [编程导航知识星球](https://yupi.icu)
-
-基于 Java SpringBoot 的项目初始模板，整合了常用框架和主流业务的示例代码。
-
-只需 1 分钟即可完成内容网站的后端！！！大家还可以在此基础上快速开发自己的项目。
-
-[toc]
-
-## 模板特点
+## 特点
 
 ### 主流框架 & 特性
 
-- Spring Boot 2.7.x（贼新）
-- Spring MVC
-- MyBatis + MyBatis Plus 数据访问（开启分页）
+- Spring Boot
+- MyBatis + MyBatis Plus 数据访问（分页）
 - Spring Boot 调试工具和项目处理器
 - Spring AOP 切面编程
 - Spring Scheduler 定时任务
@@ -25,8 +17,6 @@
 
 - MySQL 数据库
 - Redis 内存数据库
-- Elasticsearch 搜索引擎
-- 腾讯云 COS 对象存储
 
 ### 工具类
 
@@ -49,18 +39,10 @@
 - 长整数丢失精度解决
 - 多环境配置
 
-
 ## 业务功能
 
-- 提供示例 SQL（用户、帖子、帖子点赞、帖子收藏表）
+- 示例 SQL
 - 用户登录、注册、注销、更新、检索、权限管理
-- 帖子创建、删除、编辑、更新、数据库检索、ES 灵活检索
-- 帖子点赞、取消点赞
-- 帖子收藏、取消收藏、检索已收藏帖子
-- 帖子全量同步 ES、增量同步 ES 定时任务
-- 支持微信开放平台登录
-- 支持微信公众号订阅、收发消息、设置菜单
-- 支持分业务的文件上传
 
 ### 单元测试
 
@@ -71,14 +53,9 @@
 
 - 合理分层
 
-
-## 快速上手
-
-> 所有需要修改的地方鱼皮都标记了 `todo`，便于大家找到修改的位置~
-
 ### MySQL 数据库
 
-1）修改 `application.yml` 的数据库配置为你自己的：
+1）修改 `application.yml` 的数据库配置
 
 ```yml
 spring:
@@ -91,7 +68,7 @@ spring:
 
 2）执行 `sql/create_table.sql` 中的数据库语句，自动创建库表
 
-3）启动项目，访问 `http://localhost:11111/api/doc.html` 即可打开接口文档，不需要写前端就能在线调试接口了~
+3）启动项目，访问 `http://localhost:11111/api/doc.html` 即可打开接口文档进行调试
 
 ![](doc/swagger.png)
 
@@ -152,8 +129,6 @@ PUT post_v1
  参数见 sql/post_es_mapping.json 文件
 }
 ```
-
-这步不会操作的话需要补充下 Elasticsearch 的知识，或者自行百度一下~
 
 3）开启同步任务，将数据库的帖子同步到 Elasticsearch
 
