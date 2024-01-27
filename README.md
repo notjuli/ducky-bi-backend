@@ -1,6 +1,6 @@
 # Ducky BI
-基于SpringBoot +AIGC的智能数据分析平台
-此文件为项目的后端代码
+- 基于SpringBoot +AIGC的智能数据分析平台
+- 此文件为项目的后端代码
 
 ## 特点
 
