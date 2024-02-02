@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yupi.springbootinit.mapper.ChartMapper">
+<mapper namespace="com.juli.springbootinit.mapper.ChartMapper">
 
-    <resultMap id="BaseResultMap" type="com.yupi.springbootinit.model.entity.Chart">
+    <resultMap id="BaseResultMap" type="com.juli.springbootinit.model.entity.Chart">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="goal" column="goal" jdbcType="VARCHAR"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
@@ -24,4 +24,8 @@
         userId,createTime,updateTime,
         isDelete
     </sql>
+
+    <select id="queryChartData" parameterType ="java.lang.String" resultType="java.util.Map">
+            ${querySql}
+    </select>
 </mapper>
