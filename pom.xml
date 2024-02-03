@@ -19,6 +19,11 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.26.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.yucongming</groupId>
             <artifactId>yucongming-java-sdk</artifactId>
             <version>0.0.3</version>

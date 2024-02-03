@@ -4,6 +4,7 @@ import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.gson.Gson;
+import com.juli.springbootinit.manager.RedisLimiterManager;
 import com.juli.springbootinit.model.dto.chart.*;
 import com.juli.springbootinit.service.ChartService;
 import com.juli.springbootinit.annotation.AuthCheck;
@@ -16,8 +17,6 @@ import com.juli.springbootinit.constant.UserConstant;
 import com.juli.springbootinit.exception.BusinessException;
 import com.juli.springbootinit.exception.ThrowUtils;
 import com.juli.springbootinit.manager.AiManager;
-import com.juli.springbootinit.mapper.ChartMapper;
-import com.juli.springbootinit.model.dto.chart.*;
 import com.juli.springbootinit.model.entity.Chart;
 import com.juli.springbootinit.model.entity.User;
 import com.juli.springbootinit.model.vo.BiResponse;
@@ -56,7 +55,7 @@ public class ChartController {
     private AiManager aiManager;
 
     @Resource
-    private ChartMapper chartMapper;
+    private RedisLimiterManager redisLimiterManager;
 
     private final static Gson GSON = new Gson();
 
@@ -92,8 +91,8 @@ public class ChartController {
         String suffix = FileUtil.getSuffix(originalFilename);
         final List<String> validSuffix = Arrays.asList("png","jpg","svg","webp","jpeg");
         ThrowUtils.throwIf(!validSuffix.contains(suffix),ErrorCode.PARAMS_ERROR,"文件后缀非法");
-
-
+        // 限流判断，每个用户一个限流器
+        redisLimiterManager.doRateLimit("genChartByAi_" + loginUser.getId());
         // 拼接给AI传的输入信息
         StringBuilder userInput = new StringBuilder();
         userInput.append("分析需求：").append("\n");
