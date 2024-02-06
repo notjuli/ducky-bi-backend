@@ -85,12 +85,12 @@ public class ChartController {
         long size =  multipartFile.getSize();
         String originalFilename = multipartFile.getOriginalFilename();
         // 校验文件大小
-        final long ONE_MB = 1024 * 1024;
-        ThrowUtils.throwIf(size > ONE_MB, ErrorCode.PARAMS_ERROR,"文件超过 1M");
+        final long ONE_MB = 1024 * 1024 * 100;
+        ThrowUtils.throwIf(size > ONE_MB, ErrorCode.PARAMS_ERROR,"文件超过 100M");
         // 校验文件后缀
         String suffix = FileUtil.getSuffix(originalFilename);
-        final List<String> validSuffix = Arrays.asList("png","jpg","svg","webp","jpeg");
-        ThrowUtils.throwIf(!validSuffix.contains(suffix),ErrorCode.PARAMS_ERROR,"文件后缀非法");
+        final List<String> validFileSuffix = Arrays.asList("xlsx","xls");
+        ThrowUtils.throwIf(!validFileSuffix.contains(suffix),ErrorCode.PARAMS_ERROR,"文件后缀非法");
         // 限流判断，每个用户一个限流器
         redisLimiterManager.doRateLimit("genChartByAi_" + loginUser.getId());
         // 拼接给AI传的输入信息
@@ -104,6 +104,7 @@ public class ChartController {
         // 原始数据转化为csv数据
         String csvData = ExcelUtils.excelToCsv(multipartFile);
         userInput.append("原始数据:").append(csvData).append("\n");
+
         // 调用AI得到分析结果
         String result = aiManager.doChat(modelId, userInput.toString());
         // 拆分分析结果
